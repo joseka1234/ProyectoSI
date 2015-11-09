@@ -2,32 +2,19 @@
 using System.Collections;
 
 public class Movimiento : MonoBehaviour {
+	public Vector3 velocidad = new Vector3(0.03f, 0.0f,0.0f);
 
-	float x;
-	float y;
-	float z;
-	public float velocidad;
-	float auxVelocity;
 	// Use this for initialization
 	void Start () {
-		x = GameObject.Find ("Player").transform.position.x;
-		y = GameObject.Find ("Player").transform.position.y;
-		z = GameObject.Find ("Player").transform.position.z;
+
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey (KeyCode.W))
-			y += velocidad;
-		if (Input.GetKey (KeyCode.S))
-			y -= velocidad;
-		if (Input.GetKey (KeyCode.A))
-			x -= velocidad;
-		if (Input.GetKey (KeyCode.D))
-			x += velocidad;
 
-		GameObject.Find ("Player").transform.position = (new Vector3 (x, y, z));
-
+		GameObject player = GameObject.Find ("Player");
+		Vector3 move = player.GetComponent<CharacterController> ().SimpleMove(velocidad);
+		player.transform.position = move * Time.deltaTime;
 
 	}
 }
