@@ -2,19 +2,28 @@
 using System.Collections;
 
 public class Movimiento : MonoBehaviour {
-	public Vector3 velocidad = new Vector3(0.03f, 0.0f,0.0f);
 
-	// Use this for initialization
-	void Start () {
-
-	}
+	public float speed = 0.03f;
 
 	// Update is called once per frame
 	void Update () {
 
-		GameObject player = GameObject.Find ("Player");
-		Vector3 move = player.GetComponent<CharacterController> ().SimpleMove(velocidad);
-		player.transform.position = move * Time.deltaTime;
+		move (1, 0, speed);
 
+	}
+
+	public void move(int x, int y, float velocidad) {
+		Vector3 aux = getPosition();
+		aux.x += Vector3.right.x * (x * velocidad);
+		aux.y += Vector3.up.y * (y * velocidad);
+		setPosition (aux);
+	}
+
+	public void setPosition(Vector3 posicion){ 
+		transform.position = posicion;
+	}
+
+	public Vector3 getPosition() {
+		return transform.position;
 	}
 }
